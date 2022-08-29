@@ -11,42 +11,59 @@ function Feed() {
 
   const [posts, setPosts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const postsPerPage = 9;
-  const pageVisited = pageNumber * postsPerPage;
-  const displayPosts = posts.slice(pageVisited, pageVisited + postsPerPage).map((post) => {
-    return (
-      <div class="p-6 md:p-10 rounded-xl bg-white shadow-md shadow-gray-200 transform transition duration-300 hover:scale-110">
-      <Card title = {post.title} body = {post.body}/>
-      </div>
-    );
-  });
 
-  const getAllPost = async () => {
+  const config = {
+    headers: { Authorization: `Bearer da0da731188d4f79d8c265f5c334bc83fece16bcbdc8193f9072d3955044b46e` }
+}; 
+  
+  const getAllPost = () => {
     try {
-      const { data } = await axios.get(
-        `https://gorest.co.in/public/v2/posts`,
-        )
-        setPosts(data)
-    } catch (error) {
-      console.log(error)
+      axios.get(
+        `https://gorest.co.in/public/v2/posts?page=1&limit=9`,
+        config,).then(function (res){
+          setPosts(res.data)
+          console.log(res.headers['x-pagination-page'])
+          console.log(res.headers['x-pagination-pages'])
+          console.log(res.headers['x-pagination-total']/10)
+          setPageNumber(res.headers['x-pagination-pages'])
+        })
+        console.log(pageNumber)
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }
+
+    const loadPost = async (currentPage) => {
+      try {
+        const { data } = await axios.get(
+          `https://gorest.co.in/public/v2/posts?page=${currentPage}`,
+          config,
+          )
+          setPosts(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    
 
   useEffect(() => {
     getAllPost()
   }, [])
 
-  const pageCount = Math.ceil(posts.length / postsPerPage);
+  const pageCount = Math.ceil(pageNumber);
 
-  const pageChange = ({selected}) => {
-    setPageNumber(selected);
+  const pageChange = async ({selected}) => {
+    
+    let currentPage = selected + 1;
+ 
+    loadPost(currentPage);
+
+
   }
 
   return (
     <div class="pt-14">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
-      {displayPosts}
-      </div>
+      <Card posts={posts}/>
       <Paginate
         containerClassName={styles.pagination}
         pageCount={pageCount}
@@ -56,6 +73,6 @@ function Feed() {
       
     </div>
   )
-}
+  }
 
 export default Feed
