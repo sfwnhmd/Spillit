@@ -2,7 +2,6 @@ import './App.css';
 import Feed from './components/Feed';
 import AppLayout from './components/layout/AppLayout';
 import MobileNav from './components/MobileNav/MobileNav';
-import Pagination from './components/Pagination/Pagination';
 import SearchBar from './components/SearchBar';
 import AddButton from './components/AddButton';
 import Logo from './components/Logo';
@@ -41,7 +40,6 @@ function App() {
           </div>
           <Feed />
         </AppLayout>
-        <Pagination />
       </header>
     </div>
   );
