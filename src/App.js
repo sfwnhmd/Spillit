@@ -5,6 +5,7 @@ import MobileNav from './components/MobileNav/MobileNav';
 import SearchBar from './components/SearchBar';
 import AddButton from './components/AddButton';
 import Logo from './components/Logo';
+import Create from './components/Create';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           </div>
           <Feed />
         </AppLayout>
+        <Create/>
       </header>
     </div>
   );

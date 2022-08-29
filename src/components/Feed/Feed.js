@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Card';
 import Paginate from 'react-paginate';
 import styles from './index.module.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 
@@ -12,7 +13,6 @@ function Feed() {
   const [pageNumber, setPageNumber] = useState(0);
   const postsPerPage = 9;
   const pageVisited = pageNumber * postsPerPage;
-
   const displayPosts = posts.slice(pageVisited, pageVisited + postsPerPage).map((post) => {
     return (
       <div class="p-6 md:p-10 rounded-xl bg-white shadow-md shadow-gray-200 transform transition duration-300 hover:scale-110">
@@ -21,17 +21,12 @@ function Feed() {
     );
   });
 
-  const config = {
-    headers: { Authorization: `Bearer da0da731188d4f79d8c265f5c334bc83fece16bcbdc8193f9072d3955044b46e` }
-};
-
   const getAllPost = async () => {
     try {
       const { data } = await axios.get(
         `https://gorest.co.in/public/v2/posts`,
-        config,
-      )
-      setPosts(data)
+        )
+        setPosts(data)
     } catch (error) {
       console.log(error)
     }
@@ -58,6 +53,7 @@ function Feed() {
         onPageChange={pageChange}
         activeClassName={styles.paginationActive}
       />
+      
     </div>
   )
 }
