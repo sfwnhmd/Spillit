@@ -10,10 +10,10 @@ function Card({ posts = [] }) {
           <h3 class="mt-4 text-md md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400">
             {post.title}
           </h3>
-          <p class="my-4 text-base md:text-md text-gray-600 lg:truncate">
+          <p class="my-4 text-base md:text-md text-gray-600">
             {post.body}
           </p>
-          <Action />
+          <Action postID={post.id}/>
           </div>))}
         </div>
     </div>

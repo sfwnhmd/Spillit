@@ -13,7 +13,7 @@ function Feed() {
   const [pageNumber, setPageNumber] = useState(0);
 
   const config = {
-    headers: { Authorization: `Bearer da0da731188d4f79d8c265f5c334bc83fece16bcbdc8193f9072d3955044b46e` }
+    headers: { Authorization: `Bearer 634bd8fc52ec6d9ba029cb90a2381159da485730598786186d76d9e19f7bcab5` }
 }; 
   
   const getAllPost = () => {
@@ -62,7 +62,7 @@ function Feed() {
   }
 
   return (
-    <div class="pt-14">
+    <div class="pt-14 pb-14">
       <Card posts={posts}/>
       <Paginate
         containerClassName={styles.pagination}
